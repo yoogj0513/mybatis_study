@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tm:TermDictionary xmlns:tm="http://exerd.com/term-model" version="1.1">
+  <term name="주소" description="주소" physicalName="addr"/>
+  <term name="코드" description="코드, 아이디" physicalName="id">
+    <synonyms>번호</synonyms>
+  </term>
+  <term name="도로" description="도로명" physicalName="street"/>
+  <term name="시" description="시" physicalName="city"/>
+  <term name="구" description="구, 주" physicalName="state"/>
+  <term name="우편번호" description="우편번호" physicalName="zip"/>
+  <term name="읍" description="읍, 면, 동, 리" physicalName="country"/>
+  <term name="교수" description="교수" physicalName="tutor"/>
+  <term name="이름" description="성명" physicalName="name">
+    <synonyms>과목명</synonyms>
+  </term>
+  <term name="이메일" description="이메일" physicalName="email"/>
+  <term name="연락처" description="연락처" physicalName="phone"/>
+  <term name="생일" description="생년월일" physicalName="dob"/>
+  <term name="사진" description="증명사진" physicalName="pic"/>
+  <term name="학생" description="학생" physicalName="stud">
+    <physicalSynonyms>student</physicalSynonyms>
+  </term>
+  <term name="자기소개" description="자기소개서" physicalName="bio">
+    <physicalSynonyms>biography</physicalSynonyms>
+  </term>
+  <term name="성별" description="남녀" physicalName="gender"/>
+  <term name="교과목" description="교과목" physicalName="course"/>
+  <term name="설명" description="설명" physicalName="description"/>
+  <term name="시작" description="시작" physicalName="start"/>
+  <term name="일" description="일, 날짜" physicalName="date"/>
+  <term name="종료" description="종료" physicalName="end"/>
+  <term name="과목" description="과목" physicalName="course"/>
+</tm:TermDictionary>
