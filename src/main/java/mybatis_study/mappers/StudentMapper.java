@@ -1,5 +1,7 @@
 package mybatis_study.mappers;
 
+import java.util.List;
+
 import mybatis_study.dto.Student;
 
 public interface StudentMapper {
@@ -7,4 +9,7 @@ public interface StudentMapper {
 	Student selectStudentByNO(Student student);
 	// typeHandler 사용하지 않음
 	Student selectStduentByNoWithResultMap(Student student);
+	
+	//list
+	List<Student> selectStudentByAll();
 }

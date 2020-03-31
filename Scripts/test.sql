@@ -13,4 +13,5 @@ select stud_id, name, email, dob, phone,
 			substring(phone, 5, 3) as m,
 			substring(phone, 9, 4) as l 
 		from students where stud_id = 1;
-select * from students;
+
+select stud_id as studId, name, email, phone, dob from students;
