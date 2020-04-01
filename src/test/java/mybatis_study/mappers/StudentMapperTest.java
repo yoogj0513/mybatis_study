@@ -74,6 +74,12 @@ public class StudentMapperTest extends AbstractTest {
 		int res = dao.insertStudent(student);
 		Assert.assertEquals(1, res);
 	}
-
+	
+	@Test
+	public void test05DeleteStudent() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
+		int deleteStudent = dao.deleteStudent(3);
+		Assert.assertSame(1, deleteStudent);
+	}
 
 }
