@@ -23,12 +23,15 @@ public class StudentMapperImpl implements StudentMapper {
 	
 	@Override
 	public Student selectStudentByNO(Student student) {
-		return sqlSession.selectOne(namespace + ".selectStudentByNO", student);
+		try(SqlSession sqlSession = MyBatisSqlSessionFactory.openSession()){ // session close			
+			return sqlSession.selectOne(namespace + ".selectStudentByNO", student);
+		}
 	}
 
 	@Override
 	public Student selectStduentByNoWithResultMap(Student student) {
 		return sqlSession.selectOne(namespace + ".selectStduentByNoWithResultMap", student);
+		// 스프링에서는 자동으로 close가 호출됨
 	}
 
 	@Override
