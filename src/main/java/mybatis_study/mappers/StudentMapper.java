@@ -1,6 +1,7 @@
 package mybatis_study.mappers;
 
 import java.util.List;
+import java.util.Map;
 
 import mybatis_study.dto.Student;
 
@@ -19,4 +20,7 @@ public interface StudentMapper {
 	
 	//ResultMap
 	List<Student> selectStudentByAllForResultMap();
+	
+	//hasMap
+	List<Map<String, Object>> selectStudentByAllForHashMap();
 }
