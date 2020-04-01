@@ -22,3 +22,5 @@ insert into students (stud_id , name , email , phone , dob )
 values(3, '홍길동', 'test@test.co.kr', '010-1234-1234', '1990-03-28');
 
 delete from students where stud_id = 3;
+
+update students set name = 'Timothy', email = 'test@test.co.kr', phone = '010-1234-1234', dob = '2000-08-01' where stud_id = 1;
