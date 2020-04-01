@@ -39,4 +39,12 @@ public class StudentMapperImpl implements StudentMapper {
 		return sqlSession.selectList(namespace + ".selectStudentByAll");
 	}
 
+	@Override
+	public int insertStudent(Student student) {
+		try(SqlSession sqlSession = MyBatisSqlSessionFactory.openSession()){			
+			int res = sqlSession.insert(namespace + ".insertStudent", student); 
+			return res;
+		}
+	}
+
 }

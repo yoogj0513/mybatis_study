@@ -1,5 +1,7 @@
 package mybatis_study.mappers;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.junit.AfterClass;
@@ -10,6 +12,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import mybatis_study.AbstractTest;
+import mybatis_study.dto.PhoneNumber;
 import mybatis_study.dto.Student;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -55,5 +58,22 @@ public class StudentMapperTest extends AbstractTest {
 			log.debug(std.toString());
 		}
 	}
+	
+	@Test
+	public void test04InsertStudent() {
+		Calendar newDate = GregorianCalendar.getInstance();
+		newDate.set(1990, 2, 28);
+		
+		Student student = new Student();
+		student.setStudId(3);
+		student.setName("홍길동");
+		student.setEmail("test@test.co.kr");
+		student.setPhone(new PhoneNumber("010-1234-1234"));
+		student.setDob(newDate.getTime());
+		
+		int res = dao.insertStudent(student);
+		Assert.assertEquals(1, res);
+	}
+
 
 }
