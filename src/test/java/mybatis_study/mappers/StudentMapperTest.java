@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.ibatis.session.SqlSession;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -17,19 +18,26 @@ import org.junit.runners.MethodSorters;
 import mybatis_study.AbstractTest;
 import mybatis_study.dto.PhoneNumber;
 import mybatis_study.dto.Student;
+import mybatis_study.jdbc.MyBatisSqlSessionFactory;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class StudentMapperTest extends AbstractTest {
-	private static StudentMapper dao;
+	private static StudentMapperImpl dao;
+	private static SqlSession sqlSession;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		dao = StudentMapperImpl.getInstance();
+		
+		//sqlSesstion 한번 호출
+		sqlSession = MyBatisSqlSessionFactory.openSession();
+		dao.setSqlSession(sqlSession);
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		dao = null;
+		sqlSession.close();
 	}
 
 	@Test
