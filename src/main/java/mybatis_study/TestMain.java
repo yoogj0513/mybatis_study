@@ -3,7 +3,7 @@ package mybatis_study;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class Main {
+public class TestMain {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
