@@ -102,5 +102,15 @@ public class StudentMapperTest extends AbstractTest {
 		res = dao.updateStudent(student);
 		Assert.assertSame(1, res);
 	}
+	
+	@Test
+	public void test07SelectStudentByAllForResultMap() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+		List<Student> lists = dao.selectStudentByAllForResultMap();
+		Assert.assertNotNull(lists);
+		for(Student std : lists) {
+			log.debug(std.toString());
+		}
+	}
 
 }
