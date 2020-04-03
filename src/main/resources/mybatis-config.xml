@@ -10,6 +10,7 @@
 	</typeAliases>
 	
 	<typeHandlers>
+		<typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="Gender"/>
 		<package name="mybatis_study.typehandlers"/>
 	</typeHandlers>
 

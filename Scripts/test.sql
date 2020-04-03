@@ -33,3 +33,7 @@ delete from students where stud_id = 3;
 
 update students set name = 'Timothy', email = 'test@test.co.kr', phone = '010-1234-1234', dob = '2000-08-01' where stud_id = 1;
 
+insert into students(stud_id , name , email , phone , dob , gender )
+values(3, '홍길동', 'test3@test.com', '123-1234-1234', '1990-01-01', 1);
+
+select * from students;

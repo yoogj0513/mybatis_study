@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import mybatis_study.AbstractTest;
+import mybatis_study.dto.Gender;
 import mybatis_study.dto.PhoneNumber;
 import mybatis_study.dto.Student;
 import mybatis_study.jdbc.MyBatisSqlSessionFactory;
@@ -144,6 +145,32 @@ public class StudentMapperTest extends AbstractTest {
 		Student selectStd = dao.selectStudentByNoAssociation(student);
 		Assert.assertNotNull(selectStd);
 		log.debug(selectStd.toString());
+	}
+	
+	@Test
+	public void test10InsertEnumStudent() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+		
+		Calendar newDate = GregorianCalendar.getInstance();
+		newDate.set(1990, 2, 28);
+		Student student = new Student();
+		student.setStudId(3);
+		student.setName("test");
+		student.setEmail("test@test.co.kr");
+		student.setDob(newDate.getTime());
+		student.setPhone(new PhoneNumber("010-1234-1234"));
+		student.setGender(Gender.FEMALE);
+		int res = dao.insertEnumStudent(student);
+		Assert.assertEquals(1, res);
+		
+		student.setStudId(4);
+		student.setName("test2");
+		student.setEmail("test2@test2.co.kr");
+		student.setDob(newDate.getTime());
+		student.setPhone(new PhoneNumber("010-1111-1111"));
+		student.setGender(Gender.MALE);
+		int res1 = dao.insertEnumStudent(student);
+		Assert.assertEquals(1, res1);
 	}
 
 }

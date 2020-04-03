@@ -78,5 +78,10 @@
 			from students s join addresses a on s.addr_id = a.addr_id 
 			where stud_id = #{studId};
 	</select>
-
+	
+	<!-- enum 타입 다루기 -->
+	<insert id="insertEnumStudent" parameterType="Student">
+		insert into students(stud_id , name , email , phone , dob , gender )
+		values(#{studId}, #{name}, #{email}, #{phone}, #{dob}, #{gender});
+	</insert>
 </mapper>

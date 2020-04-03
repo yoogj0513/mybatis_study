@@ -209,3 +209,11 @@ drop user if exists 'user_mybatis_study'@'%';
 
 grant all privileges on mybatis_study.* to 'user_mybatis_study'@'localhost' identified by 'rootroot';
 grant all privileges on mybatis_study.* to 'user_mybatis_study'@'%' identified by 'rootroot';
+
+
+-- 열거형 컬럼 추가(gender)
+desc students;
+alter table students add gender tinyint(1) unsigned;
+
+-- alter table students add gender tinyint unsigned;
+-- alter table students modify gender tinyint(1) unsigned;
