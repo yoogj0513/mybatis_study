@@ -217,3 +217,5 @@ alter table students add gender tinyint(1) unsigned;
 
 -- alter table students add gender tinyint unsigned;
 -- alter table students modify gender tinyint(1) unsigned;
+
+desc user_pics;

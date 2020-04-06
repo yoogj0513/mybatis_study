@@ -1,8 +1,11 @@
 package mybatis_study.mappers;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.ResultContext;
+import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.SqlSession;
 
 import mybatis_study.dto.Student;
@@ -77,5 +80,26 @@ public class StudentMapperImpl implements StudentMapper {
 	public int insertEnumStudent(Student student) {
 		return sqlSession.insert(namespace + ".insertEnumStudent", student);
 	}
+
+	@Override
+	public Student selectAllStudentByMap(Map<String, String> map) {
+		return sqlSession.selectOne(namespace+".selectAllStudentByMap", map);
+	}
+
+	@Override
+	public Map<Integer, Student> selectStudentForMap(int studId) {
+		Map<Integer, Student> map = new HashMap<>();
+		ResultHandler<Student> resultHandler = new ResultHandler<Student>() {
+			@Override
+			public void handleResult(ResultContext<? extends Student> resultContext) {
+				Student student = resultContext.getResultObject();
+				map.put(student.getStudId(), student);
+			}
+		};
+		sqlSession.select(namespace + ".selectStudentForMap", studId, resultHandler);
+		return map;
+	}
+
+	
 
 }

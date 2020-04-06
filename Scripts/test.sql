@@ -37,3 +37,14 @@ insert into students(stud_id , name , email , phone , dob , gender )
 values(3, '홍길동', 'test3@test.com', '123-1234-1234', '1990-01-01', 1);
 
 select * from students;
+
+-- userPci
+select * from user_pics;
+delete from user_pics where id = 1;
+
+insert into user_pics (id, name, pic, bio) 
+values(1, 'LeeYouYong', '', 'put some lengthy bio here');
+
+-- 여러 개의 입력 파라미터 실습
+select stud_id, name, email, phone, dob, gender from students
+where name = "test";

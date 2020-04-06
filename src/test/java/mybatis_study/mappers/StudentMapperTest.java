@@ -3,6 +3,7 @@ package mybatis_study.mappers;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -171,6 +172,37 @@ public class StudentMapperTest extends AbstractTest {
 		student.setGender(Gender.MALE);
 		int res1 = dao.insertEnumStudent(student);
 		Assert.assertEquals(1, res1);
+	}
+	
+	@Test
+	public void test11SelectAllStudentByMap() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+		Map<String, String> maps = new HashMap<String, String>();
+		maps.put("name", "Timothy");
+		maps.put("email", "timothy@gmail.com");
+		Student student = dao.selectAllStudentByMap(maps);
+		Assert.assertNotNull(student);
+		log.debug(student.toString());
+		
+		maps.remove("email");
+		student = dao.selectAllStudentByMap(maps);
+		log.debug(student.toString());
+		
+		maps.clear();
+		maps.put("email", "timothy@gmail.com");
+		student = dao.selectAllStudentByMap(maps);
+		log.debug(student.toString());
+	}
+	
+	@Test
+	public void test12SelectStudentForMap() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+		Map<Integer, Student> map = dao.selectStudentForMap(1);
+		Assert.assertNotNull(map);
+		
+		for(Entry<Integer, Student> entry : map.entrySet()) {
+			System.out.printf("key(%s) - values(%s)%n", entry.getKey(), entry.getValue());
+		}
 	}
 
 }
