@@ -16,6 +16,8 @@ select stud_id, name, email, dob, phone,
 
 select stud_id as studId, name, email, phone, dob from students;
 
+select * from courses WHERE tutor_id IN ( 1, 2 ) 
+
 select stud_id, name, email, phone, dob, a.addr_id, street, city, state, zip, country
 	from students s join addresses a on s.addr_id = a.addr_id 
 	where stud_id = 1;
@@ -48,3 +50,31 @@ values(1, 'LeeYouYong', '', 'put some lengthy bio here');
 -- 여러 개의 입력 파라미터 실습
 select stud_id, name, email, phone, dob, gender from students
 where name = "test";
+
+select * from tutors;
+select * from courses;
+select * from courses WHERE tutor_id = 1;
+
+
+select * from courses;
+select * from courses where course_id in (4, 5, 6);
+delete from courses where course_id in (4, 5, 6);
+delete from courses where tutor_id in (3, 4);
+delete from tutors where tutor_id = 5;
+delete from courses where course_id = 4;
+
+
+-- procedure
+drop procedure if exists course_total;
+delimiter $$
+$$
+create procedure course_total(in tutor_id int)
+begin
+	select t.name as tutor, ifnull(count(c.name), 0) as total
+	from tutors t left join courses c on t.tutor_id = c.tutor_id 
+	where t.tutor_id = tutor_id; 
+end$$
+delimiter ;
+
+call course_total(1); 
+

@@ -107,4 +107,15 @@
 		select stud_id, name from students where stud_id = #{studId}
 	</select>
 	
+	<!-- set -->
+	<update id="updateSetStudent" parameterType="Student">
+		update students
+		<set>
+			<if test="name != null">name=#{name},</if>
+			<if test="email != null">email=#{email},</if>
+			<if test="phone != null">name=#{phone},</if>
+			<if test="dob != null">name=#{dob},</if>			
+		</set>
+		where stud_id=#{studId}
+	</update>
 </mapper>

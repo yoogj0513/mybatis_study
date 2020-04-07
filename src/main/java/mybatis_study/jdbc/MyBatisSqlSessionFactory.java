@@ -20,7 +20,7 @@ public class MyBatisSqlSessionFactory {
 		}
 	}
 	
-	public static SqlSession openSession() {
-		return sqlSessionFactory.openSession(true); //setAutoCommit(false)
+	public static SqlSession openSession(boolean isAuto) {
+		return sqlSessionFactory.openSession(isAuto); //setAutoCommit(false)
 	}
 }

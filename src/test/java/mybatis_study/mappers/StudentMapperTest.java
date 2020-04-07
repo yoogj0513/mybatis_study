@@ -32,7 +32,7 @@ public class StudentMapperTest extends AbstractTest {
 		dao = StudentMapperImpl.getInstance();
 		
 		//sqlSesstion 한번 호출
-		sqlSession = MyBatisSqlSessionFactory.openSession();
+		sqlSession = MyBatisSqlSessionFactory.openSession(true);
 		dao.setSqlSession(sqlSession);
 	}
 
@@ -72,7 +72,7 @@ public class StudentMapperTest extends AbstractTest {
 		}
 	}
 	
-	@Test
+	@Test(expected = RuntimeException.class)
 	public void test04InsertStudent() {
 		Calendar newDate = GregorianCalendar.getInstance();
 		newDate.set(1990, 2, 28);
@@ -148,7 +148,7 @@ public class StudentMapperTest extends AbstractTest {
 		log.debug(selectStd.toString());
 	}
 	
-	@Test
+	@Test(expected = RuntimeException.class)
 	public void test10InsertEnumStudent() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		
@@ -203,6 +203,24 @@ public class StudentMapperTest extends AbstractTest {
 		for(Entry<Integer, Student> entry : map.entrySet()) {
 			System.out.printf("key(%s) - values(%s)%n", entry.getKey(), entry.getValue());
 		}
+	}
+	
+	@Test
+	public void test13UpdateSetStudent() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+		Student student = new Student();
+		student.setStudId(1);
+		student.setPhone(new PhoneNumber("010-0101-1011"));
+		student.setDob(new Date());
+		
+		int res = dao.updateSetStudent(student);
+		Assert.assertSame(1, res);
+		
+		student.setPhone(new PhoneNumber("000-0000-0000"));
+		student.setDob(new GregorianCalendar(1988, 04, 24).getTime());
+		
+		res = dao.updateSetStudent(student);
+		Assert.assertSame(1, res);
 	}
 
 }

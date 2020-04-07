@@ -8,4 +8,126 @@
 		<result property="startDate" column="start_date"/>
 		<result property="endDate" column="end_date"/>
 	</resultMap>
+	
+	<!-- sql -->
+	<sql id="selectSQL">
+		select * from courses
+	</sql>
+	<sql id="whereSQL">
+		<where>
+			<if test="tutorId != null">
+				and tutor_id = #{tutorId}
+			</if>
+			<if test="courseName != null">
+				and name like #{courseName}
+			</if>
+			<if test="startDate != null">
+				and start_date &gt;= #{startDate}
+			</if>
+			<if test="endDate != null">
+				and end_date &lt;= #{endDate}
+				<!-- <![CDATA[and end_date <= #{endDate}]]> CDATA 코드로도 사용 가능 -->
+			</if>
+		</where>
+	</sql>
+	
+	<!-- procedure -->
+	<parameterMap type="map" id="paramMap">
+		<parameter property="tutor_id" mode="IN" jdbcType="INTEGER"/>
+	</parameterMap>
+	
+	<select id="getCourseCountByTutor" statementType="CALLABLE" parameterMap="paramMap" resultType="CourseStat">
+		{call course_total(?)}
+	</select>
+	
+	<select id="getCourseCountByTutor2" statementType="CALLABLE" parameterType="map" resultType="CourseStat">
+		{call course_total(#{tutor_id, mode=IN, jdbcType=INTEGER}) }
+	</select>
+	
+	<select id="getCourseCountByTotur3" statementType="CALLABLE" resultType="CourseStat">
+		{call course_total(#{param1, mode=IN, jdbcType=INTEGER})}
+	</select>
+	
+	<!-- select -->
+	<select id="selectCoursesByCondition" parameterType="hashmap" resultMap="CourseResult">
+		<include refid="selectSQL"/>
+		<include refid="whereSQL"/>
+	</select>
+	
+	<select id="selectWhereCourses" parameterType="map" resultMap="CourseResult">
+		<include refid="selectSQL"/>
+		<include refid="whereSQL"/>
+	</select>
+	
+	<select id="selectTrimCourses" parameterType="map" resultMap="CourseResult">
+		<include refid="selectSQL"/>
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<!-- 아래 tutordId != null 조건이 참이면 앞부분에 where 자동 추가 -->		
+			<if test="tutorId != null">
+				tutor_id = #{tutorId}
+			</if>
+			<!-- 만약 where가 추가 된 경우 and 절 추가, where 존재하지 않는 경우 where 추가하고 and 제거 -->
+			<if test="courseName != null">
+				and name like #{courseName}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="selectCaseCourses" parameterType="hashmap" resultMap="CourseResult">
+		<include refid="selectSQL"/>
+		<choose>
+			<when test="searchBy == 'Tutor'">
+				where tutor_id = #{tutorId}
+			</when>
+			<when test="searchBy == 'CourseName'">
+				where name like #{courseName}
+			</when>
+			<otherwise>
+				where end_date &gt;= now()
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="selectCoursesForeachByTutors" parameterType="map" resultMap="CourseResult">
+		<include refid="selectSQL"/>
+		<if test="tutorIds != null">
+			<where>
+				tutor_id IN
+				<foreach item="tutorId" collection="tutorIds" index="index" open="(" close=")" separator=",">
+					#{tutorId}
+				</foreach>
+			</where>
+		</if>
+	</select>
+	
+	<!-- insert -->
+	<insert id="insertCourses" parameterType="map">
+		insert into courses(course_id, name, description, start_date, end_date, tutor_id) values
+		<foreach item="item" collection="tutors" separator=" ," index="index">
+			(#{item.courseId}, #{item.name}, #{item.description}, #{item.startDate}, #{item.endDate}, #{item.tutorId})
+		</foreach>
+	</insert>
+	
+	<insert id="insertCourse" parameterType="Course">
+		insert into courses (course_id, name, description, start_date, end_date, tutor_id)
+		values(#{courseId}, #{name}, #{description}, #{startDate}, #{endDate}, #{tutorId})
+	</insert>
+	
+	<!-- delete -->
+	<delete id="deleteCourses" parameterType="map">
+		delete from courses
+		<if test="deleteTutorIds != null">
+			<where>
+				tutor_id IN
+				<foreach item="tutorId" collection="deleteTutorIds" index="index" open="(" close=")" separator=","> 
+					#{tutorId}
+				</foreach>
+			</where>
+		</if>
+	</delete>
+	
+	<delete id="deleteCourse" parameterType="int">
+		delete from courses where course_id = #{courseId}
+	</delete>
+	
 </mapper>

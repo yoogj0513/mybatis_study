@@ -51,13 +51,13 @@ public class StudentMapperImpl implements StudentMapper {
 
 	@Override
 	public int deleteStudent(int id) {
-		int res = sqlSession.insert(namespace + ".deleteStudent", id); 
+		int res = sqlSession.delete(namespace + ".deleteStudent", id); 
 		return res;
 	}
 
 	@Override
 	public int updateStudent(Student student) {
-		int res = sqlSession.insert(namespace + ".updateStudent", student); 
+		int res = sqlSession.update(namespace + ".updateStudent", student); 
 		return res;
 	}
 
@@ -98,6 +98,11 @@ public class StudentMapperImpl implements StudentMapper {
 		};
 		sqlSession.select(namespace + ".selectStudentForMap", studId, resultHandler);
 		return map;
+	}
+
+	@Override
+	public int updateSetStudent(Student student) {
+		return sqlSession.update(namespace + ".updateSetStudent", student);
 	}
 
 	
